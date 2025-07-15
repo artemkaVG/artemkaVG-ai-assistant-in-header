@@ -35,12 +35,17 @@
             }
         };
 
-        // Вставить кнопку в конец шапки
-        header.appendChild(btn);
+        // Добавить кнопку после последней стандартной кнопки
+        var lastButton = header.querySelector('.button:last-of-type');
+        if (lastButton) {
+            lastButton.after(btn);
+        } else {
+            header.appendChild(btn);
+        }
 
-        // Явно обновить контроллер шапки для поддержки пульта
-        if (window.Lampa && Lampa.Controller && typeof Lampa.Controller.enable === 'function') {
-            Lampa.Controller.enable('head');
+        // === КЛЮЧЕВОЙ МОМЕНТ: Зарегистрировать кнопку в контроллере ===
+        if (window.Lampa && Lampa.Controller && typeof Lampa.Controller.add === 'function') {
+            Lampa.Controller.add('head', btn);
         }
     }
 
