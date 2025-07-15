@@ -18,7 +18,7 @@
         btn.setAttribute('tabindex', '0');
         btn.setAttribute('data-title', 'AI ассистент (голосовой поиск)');
 
-        // Обработчик нажатия: вызвать ассистента
+        // Обработчик для пульта
         btn.addEventListener('hover:enter', function() {
             if (window.AndroidJS && typeof window.AndroidJS.voiceStart === 'function') {
                 window.AndroidJS.voiceStart();
@@ -37,6 +37,11 @@
 
         // Вставить кнопку в конец шапки
         header.appendChild(btn);
+
+        // Явно обновить контроллер шапки для поддержки пульта
+        if (window.Lampa && Lampa.Controller && typeof Lampa.Controller.enable === 'function') {
+            Lampa.Controller.enable('head');
+        }
     }
 
     // Добавлять кнопку при загрузке приложения и при смене страниц
