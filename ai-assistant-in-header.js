@@ -3,8 +3,8 @@
 
     // Функция для добавления кнопки ассистента в шапку LAMPA
     function addAssistantButton() {
-        // Найти контейнер с иконками справа в шапке
-        var header = document.querySelector('.head__icons, .head__right, .header__icons, .header__right');
+        // Используем точный контейнер для иконок справа
+        var header = document.querySelector('.head__actions');
         if (!header) return;
 
         // Проверить, не добавлена ли уже кнопка
