@@ -46,10 +46,7 @@
         // ОБНОВИТЬ КОНТРОЛЛЕР HEAD, чтобы он узнал о кнопке и сфокусировать на ней
         if (window.Lampa && Lampa.Controller) {
             setTimeout(() => {
-                Lampa.Controller.enable('head');
-                let buttons = header.querySelectorAll('.button');
-                Lampa.Controller.collectionSet(buttons, () => {});
-                Lampa.Controller.collectionFocus(btn, buttons);
+                Lampa.Controller.toggle('head');
             }, 300);
         }
     }
