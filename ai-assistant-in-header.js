@@ -10,38 +10,25 @@
         // Проверить, не добавлена ли уже кнопка
         if (header.querySelector('.lampa-ai-assistant-btn')) return;
 
-        // Создать кнопку с классами LAMPA
-        var btn = document.createElement('div');
-        btn.className = 'button selector lampa-ai-assistant-btn';
-        btn.style.cssText = 'margin-left:12px;display:flex;align-items:center;gap:6px;user-select:none;';
-        btn.innerHTML = '<span style="font-size:18px;">🤖</span><span style="font-size:14px;">AI</span>';
-        btn.setAttribute('tabindex', '0');
-        btn.setAttribute('data-title', 'AI ассистент (голосовой поиск)');
+        // Создаём кнопку
+        const btn = document.createElement('button');
+        btn.className = 'button button--icon ai-assistant-btn';
+        btn.type = 'button';
+        btn.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+          </svg>
+        `;
+        btn.title = 'AI Assistant';
 
-        // Обработчик для пульта
-        btn.addEventListener('hover:enter', function() {
-            if (window.AndroidJS && typeof window.AndroidJS.voiceStart === 'function') {
-                window.AndroidJS.voiceStart();
-            } else {
-                Lampa.Noty && Lampa.Noty.show ? Lampa.Noty.show('AI ассистент недоступен') : alert('AI ассистент недоступен');
-            }
+        // Добавляем обработчик
+        btn.addEventListener('click', () => {
+          // Ваш код для вызова ассистента
         });
-        // Для клика мышкой
-        btn.onclick = function() {
-            if (window.AndroidJS && typeof window.AndroidJS.voiceStart === 'function') {
-                window.AndroidJS.voiceStart();
-            } else {
-                Lampa.Noty && Lampa.Noty.show ? Lampa.Noty.show('AI ассистент недоступен') : alert('AI ассистент недоступен');
-            }
-        };
 
-        // Добавить кнопку после последней стандартной кнопки
-        var lastButton = header.querySelector('.button:last-of-type');
-        if (lastButton) {
-            lastButton.after(btn);
-        } else {
-            header.appendChild(btn);
-        }
+        // Вставляем в .head__actions
+        const actions = document.querySelector('.head__actions');
+        if (actions) actions.appendChild(btn);
 
         // ОБНОВИТЬ КОНТРОЛЛЕР HEAD, чтобы он узнал о кнопке и сфокусировать на ней
         if (window.Lampa && Lampa.Controller) {
